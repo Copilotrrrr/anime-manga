@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AnimeManga</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0b0b12;
+            color: white;
+        }
+
+        header {
+            background: #141420;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #29293a;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #ff3d81;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        nav a:hover {
+            color: #ff3d81;
+        }
+
+        .hero {
+            padding: 90px 7%;
+            background: linear-gradient(135deg, #17172a, #25102d);
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .hero span {
+            color: #ff3d81;
+        }
+
+        .hero p {
+            color: #c5c5d0;
+            font-size: 18px;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #ff3d81;
+            color: white;
+            padding: 13px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        section {
+            padding: 50px 7%;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: #161621;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #29293a;
+        }
+
+        .cover {
+            height: 220px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ff3d81, #702cff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 8px;
+        }
+
+        .rating {
+            color: #ffd43b;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            color: #55e6a5;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #141420;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎌 AnimeManga</div>
+
+    <nav>
+        <a href="#">Accueil</a>
+        <a href="#classement">Classement</a>
+        <a href="#mangas">Mangas</a>
+        <a href="#">🛒 Panier</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Bienvenue sur <span>AnimeManga</span></h1>
+
+    <p>
+        Découvre les meilleurs animes, vote pour tes favoris
+        et retrouve tes mangas préférés.
+    </p>
+
+    <a class="button" href="#classement">
+        Découvrir le classement
+    </a>
+</section>
+
+<section id="classement">
+    <h2>🔥 Classement des animes</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="cover">🏴‍☠️</div>
+            <h3>#1 One Piece</h3>
+            <div class="rating">⭐ 9.2 / 10</div>
+            <p>Action • Aventure</p>
+        </div>
+
+        <div class="card">
+            <div class="cover">🍥</div>
+            <h3>#2 Naruto</h3>
+            <div class="rating">⭐ 8.8 / 10</div>
+            <p>Action • Ninja</p>
+        </div>
+
+        <div class="card">
+            <div class="cover">⚔️</div>
+            <h3>#3 Demon Slayer</h3>
+            <div class="rating">⭐ 8.7 / 10</div>
+            <p>Action • Fantastique</p>
+        </div>
+
+        <div class="card">
+            <div class="cover">👊</div>
+            <h3>#4 Jujutsu Kaisen</h3>
+            <div class="rating">⭐ 8.6 / 10</div>
+            <p>Action • Surnaturel</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="mangas">
+
+    <h2>📚 Mangas à la une</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="cover">📕</div>
+            <h3>One Piece — Tome 110</h3>
+            <div class="price">7,20 €</div>
+            <a class="button" href="#">Ajouter au panier</a>
+        </div>
+
+        <div class="card">
+            <div class="cover">📗</div>
+            <h3>Naruto — Tome 72</h3>
+            <div class="price">7,10 €</div>
+            <a class="button" href="#">Ajouter au panier</a>
+        </div>
+
+        <div class="card">
+            <div class="cover">📘</div>
+            <h3>Jujutsu Kaisen — Tome 25</h3>
+            <div class="price">7,30 €</div>
+            <a class="button" href="#">Ajouter au panier</a>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    © 2026 AnimeManga — Ton univers anime & manga
+</footer>
+
+</body>
+</html>
