@@ -1,232 +1,260 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeManga</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AniShop - Classement & Boutique</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding-bottom: 50px;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #0b0b12;
-            color: white;
-        }
+    /* En-tête / Navigation */
+    header {
+      background-color: #1e293b;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-        header {
-            background: #141420;
-            padding: 20px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #29293a;
-        }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #38bdf8;
+    }
 
-        .logo {
-            font-size: 25px;
-            font-weight: bold;
-            color: #ff3d81;
-        }
+    nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-        }
+    nav a:hover {
+      color: #38bdf8;
+    }
 
-        nav a:hover {
-            color: #ff3d81;
-        }
+    /* Sections générales */
+    section {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
 
-        .hero {
-            padding: 90px 7%;
-            background: linear-gradient(135deg, #17172a, #25102d);
-        }
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #38bdf8;
+      padding-left: 0.75rem;
+    }
 
-        .hero h1 {
-            font-size: 55px;
-            margin-bottom: 20px;
-        }
+    /* Section Classement (Top Animes) */
+    .ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-        .hero span {
-            color: #ff3d81;
-        }
+    .ranking-item {
+      background-color: #1e293b;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.2s;
+    }
 
-        .hero p {
-            color: #c5c5d0;
-            font-size: 18px;
-            max-width: 600px;
-            margin-bottom: 30px;
-        }
+    .ranking-item:hover {
+      transform: translateX(5px);
+    }
 
-        .button {
-            display: inline-block;
-            background: #ff3d81;
-            color: white;
-            padding: 13px 22px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    .rank {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #f59e0b;
+      width: 40px;
+    }
 
-        section {
-            padding: 50px 7%;
-        }
+    .anime-title {
+      font-size: 1.1rem;
+      flex-grow: 1;
+    }
 
-        h2 {
-            margin-bottom: 25px;
-        }
+    .rating {
+      background-color: #334155;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-        }
+    /* Section Boutique Mangas */
+    .manga-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
 
-        .card {
-            background: #161621;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #29293a;
-        }
+    .manga-card {
+      background-color: #1e293b;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
 
-        .cover {
-            height: 220px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #ff3d81, #702cff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
+    .manga-img {
+      width: 100%;
+      height: 280px;
+      background-color: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+    }
 
-        .card h3 {
-            margin-bottom: 8px;
-        }
+    .manga-info {
+      padding: 1rem;
+    }
 
-        .rating {
-            color: #ffd43b;
-            margin-bottom: 10px;
-        }
+    .manga-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
 
-        .price {
-            color: #55e6a5;
-            font-size: 18px;
-            font-weight: bold;
-            margin: 10px 0;
-        }
+    .manga-price {
+      font-size: 1.2rem;
+      color: #4ade80;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #141420;
-            color: #888;
-        }
-    </style>
+    .btn-buy {
+      width: 100%;
+      background-color: #0284c7;
+      color: white;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .btn-buy:hover {
+      background-color: #0369a1;
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-    <div class="logo">🎌 AnimeManga</div>
-
+  <!-- Navigation -->
+  <header>
+    <div class="logo">AniShop ⛩️</div>
     <nav>
-        <a href="#">Accueil</a>
-        <a href="#classement">Classement</a>
-        <a href="#mangas">Mangas</a>
-        <a href="#">🛒 Panier</a>
+      <a href="#top-anime">Top Animes</a>
+      <a href="#shop">Boutique Manga</a>
+      <a href="#cart">Panier (0)</a>
     </nav>
-</header>
+  </header>
 
-<section class="hero">
-    <h1>Bienvenue sur <span>AnimeManga</span></h1>
+  <!-- Section 1 : Classement des Animes -->
+  <section id="top-anime">
+    <h2>🏆 Classement des Meilleurs Animes</h2>
+    <div class="ranking-list">
+      
+      <div class="ranking-item">
+        <span class="rank">#1</span>
+        <span class="anime-title">Attack on Titan (Shingeki no Kyojin)</span>
+        <span class="rating">⭐ 9.1/10</span>
+      </div>
 
-    <p>
-        Découvre les meilleurs animes, vote pour tes favoris
-        et retrouve tes mangas préférés.
-    </p>
+      <div class="ranking-item">
+        <span class="rank">#2</span>
+        <span class="anime-title">Fullmetal Alchemist: Brotherhood</span>
+        <span class="rating">⭐ 9.0/10</span>
+      </div>
 
-    <a class="button" href="#classement">
-        Découvrir le classement
-    </a>
-</section>
+      <div class="ranking-item">
+        <span class="rank">#3</span>
+        <span class="anime-title">Demon Slayer (Kimetsu no Yaiba)</span>
+        <span class="rating">⭐ 8.7/10</span>
+      </div>
 
-<section id="classement">
-    <h2>🔥 Classement des animes</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="cover">🏴‍☠️</div>
-            <h3>#1 One Piece</h3>
-            <div class="rating">⭐ 9.2 / 10</div>
-            <p>Action • Aventure</p>
-        </div>
-
-        <div class="card">
-            <div class="cover">🍥</div>
-            <h3>#2 Naruto</h3>
-            <div class="rating">⭐ 8.8 / 10</div>
-            <p>Action • Ninja</p>
-        </div>
-
-        <div class="card">
-            <div class="cover">⚔️</div>
-            <h3>#3 Demon Slayer</h3>
-            <div class="rating">⭐ 8.7 / 10</div>
-            <p>Action • Fantastique</p>
-        </div>
-
-        <div class="card">
-            <div class="cover">👊</div>
-            <h3>#4 Jujutsu Kaisen</h3>
-            <div class="rating">⭐ 8.6 / 10</div>
-            <p>Action • Surnaturel</p>
-        </div>
+      <div class="ranking-item">
+        <span class="rank">#4</span>
+        <span class="anime-title">Jujutsu Kaisen</span>
+        <span class="rating">⭐ 8.6/10</span>
+      </div>
 
     </div>
-</section>
+  </section>
 
-<section id="mangas">
+  <!-- Section 2 : Boutique Mangas -->
+  <section id="shop">
+    <h2>📚 Boutique Manga</h2>
+    <div class="manga-grid">
 
-    <h2>📚 Mangas à la une</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <div class="cover">📕</div>
-            <h3>One Piece — Tome 110</h3>
-            <div class="price">7,20 €</div>
-            <a class="button" href="#">Ajouter au panier</a>
+      <!-- Produit 1 -->
+      <div class="manga-card">
+        <div class="manga-img">Couverture Manga</div>
+        <div class="manga-info">
+          <div class="manga-title">One Piece - Tome 100</div>
+          <div class="manga-price">6.99 €</div>
+          <button class="btn-buy">Acheter</button>
         </div>
+      </div>
 
-        <div class="card">
-            <div class="cover">📗</div>
-            <h3>Naruto — Tome 72</h3>
-            <div class="price">7,10 €</div>
-            <a class="button" href="#">Ajouter au panier</a>
+      <!-- Produit 2 -->
+      <div class="manga-card">
+        <div class="manga-img">Couverture Manga</div>
+        <div class="manga-info">
+          <div class="manga-title">Jujutsu Kaisen - Tome 01</div>
+          <div class="manga-price">6.95 €</div>
+          <button class="btn-buy">Acheter</button>
         </div>
+      </div>
 
-        <div class="card">
-            <div class="cover">📘</div>
-            <h3>Jujutsu Kaisen — Tome 25</h3>
-            <div class="price">7,30 €</div>
-            <a class="button" href="#">Ajouter au panier</a>
+      <!-- Produit 3 -->
+      <div class="manga-card">
+        <div class="manga-img">Couverture Manga</div>
+        <div class="manga-info">
+          <div class="manga-title">Chainsaw Man - Tome 01</div>
+          <div class="manga-price">7.20 €</div>
+          <button class="btn-buy">Acheter</button>
         </div>
+      </div>
+
+      <!-- Produit 4 -->
+      <div class="manga-card">
+        <div class="manga-img">Couverture Manga</div>
+        <div class="manga-info">
+          <div class="manga-title">Spy x Family - Tome 01</div>
+          <div class="manga-price">6.95 €</div>
+          <button class="btn-buy">Acheter</button>
+        </div>
+      </div>
 
     </div>
-
-</section>
-
-<footer>
-    © 2026 AnimeManga — Ton univers anime & manga
-</footer>
+  </section>
 
 </body>
 </html>
