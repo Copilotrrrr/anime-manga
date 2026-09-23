@@ -4,23 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AniShop - Top 50 Animes & Boutique Manga</title>
-  
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
       background-color: #0f172a;
       color: #f8fafc;
       padding-bottom: 60px;
-      line-height: 1.5;
     }
 
-    /* EN-TÊTE ET NAVIGATION */
+    /* NAVIGATION */
     header {
       background-color: #1e293b;
       padding: 1rem 2rem;
@@ -30,18 +28,13 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      border-bottom: 1px solid #334155;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     }
 
     .logo {
-      font-size: 1.6rem;
-      font-weight: 800;
+      font-size: 1.5rem;
+      font-weight: bold;
       color: #38bdf8;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
     nav {
@@ -53,7 +46,7 @@
     nav a {
       color: #94a3b8;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 500;
       transition: color 0.2s;
     }
 
@@ -65,33 +58,26 @@
       background-color: #0284c7;
       color: white;
       border: none;
-      padding: 0.55rem 1.2rem;
+      padding: 0.5rem 1rem;
       border-radius: 20px;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: bold;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: background-color 0.2s, transform 0.1s;
     }
 
-    .cart-btn-nav:hover {
-      background-color: #0369a1;
-      transform: scale(1.03);
-    }
-
-    /* CONTENEUR PRINCIPAL */
     .container {
       max-width: 1200px;
       margin: 2rem auto;
       padding: 0 1rem;
     }
 
-    /* BARRE DE RECHERCHE ET FILTRES */
+    /* RECHERCHE ET FILTRES */
     .controls-section {
       background-color: #1e293b;
       padding: 1.5rem;
-      border-radius: 12px;
+      border-radius: 10px;
       margin-bottom: 2rem;
       display: flex;
       flex-direction: column;
@@ -101,18 +87,16 @@
 
     .search-input {
       width: 100%;
-      padding: 0.8rem 1.2rem;
-      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      border-radius: 6px;
       border: 1px solid #334155;
       background-color: #0f172a;
       color: #f8fafc;
       font-size: 1rem;
-      transition: border-color 0.2s;
     }
 
     .search-input:focus {
-      outline: none;
-      border-color: #38bdf8;
+      outline: 2px solid #38bdf8;
     }
 
     .filter-tags {
@@ -125,7 +109,7 @@
       background-color: #0f172a;
       color: #94a3b8;
       border: 1px solid #334155;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 20px;
       cursor: pointer;
       font-weight: 500;
@@ -136,7 +120,6 @@
       background-color: #38bdf8;
       color: #0f172a;
       border-color: #38bdf8;
-      font-weight: 700;
     }
 
     h2 {
@@ -152,12 +135,12 @@
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
-      max-height: 700px;
+      max-height: 650px;
       overflow-y: auto;
       padding: 1rem;
       background-color: #0f172a;
       border: 1px solid #334155;
-      border-radius: 12px;
+      border-radius: 8px;
     }
 
     .ranking-item {
@@ -167,21 +150,18 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      transition: background-color 0.2s, transform 0.2s;
-      border: 1px solid transparent;
+      transition: background-color 0.2s;
     }
 
     .ranking-item:hover {
       background-color: #334155;
-      border-color: #38bdf8;
-      transform: translateX(4px);
     }
 
     .rank {
       font-size: 1.2rem;
-      font-weight: 800;
+      font-weight: bold;
       color: #f59e0b;
-      min-width: 45px;
+      width: 40px;
       text-align: center;
     }
 
@@ -189,32 +169,29 @@
       width: 50px;
       height: 70px;
       object-fit: cover;
-      border-radius: 6px;
+      border-radius: 4px;
       background-color: #334155;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
 
     .anime-info {
       display: flex;
       flex-direction: column;
+      gap: 0.3rem;
       flex-grow: 1;
-      gap: 0.2rem;
     }
 
     .anime-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #f8fafc;
+      font-size: 1.05rem;
+      font-weight: 600;
     }
 
-    .anime-genre-tag {
-      font-size: 0.75rem;
-      background-color: #0f172a;
-      color: #38bdf8;
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
+    .anime-genre {
+      font-size: 0.8rem;
+      background-color: #334155;
+      color: #94a3b8;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
       width: fit-content;
-      border: 1px solid #334155;
     }
 
     .rating {
@@ -223,8 +200,7 @@
       border-radius: 15px;
       font-weight: bold;
       color: #38bdf8;
-      font-size: 0.85rem;
-      border: 1px solid #334155;
+      font-size: 0.9rem;
       white-space: nowrap;
     }
 
@@ -237,19 +213,17 @@
 
     .manga-card {
       background-color: #1e293b;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       border: 1px solid #334155;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s;
     }
 
     .manga-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      border-color: #38bdf8;
     }
 
     .manga-cover {
@@ -259,38 +233,32 @@
       background-color: #334155;
     }
 
-    .manga-info {
+    .manga-details {
       padding: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
 
     .manga-title {
       font-size: 1rem;
-      font-weight: 700;
-      color: #f8fafc;
-      min-height: 2.4rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      font-weight: bold;
     }
 
     .manga-price {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #4ade80;
-      font-weight: 800;
+      font-weight: bold;
     }
 
     .btn-add {
       background-color: #0284c7;
       color: white;
       border: none;
-      padding: 0.7rem;
-      border-radius: 8px;
+      padding: 0.6rem;
+      border-radius: 6px;
       cursor: pointer;
-      font-weight: 700;
+      font-weight: bold;
       transition: background-color 0.2s;
     }
 
@@ -298,16 +266,15 @@
       background-color: #0369a1;
     }
 
-    /* PANNEAU LATÉRAL DU PANIER */
+    /* PANIER */
     .cart-drawer {
       position: fixed;
       top: 0;
-      right: -420px;
+      right: -400px;
       width: 380px;
-      max-width: 90vw;
       height: 100%;
       background-color: #1e293b;
-      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.7);
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
       z-index: 200;
       transition: right 0.3s ease;
       display: flex;
@@ -340,44 +307,27 @@
       flex-grow: 1;
       overflow-y: auto;
       display: flex;
-      flex-direction: flex-start;
       flex-direction: column;
       gap: 1rem;
     }
 
     .cart-item {
       display: flex;
-      gap: 0.8rem;
+      justify-content: space-between;
       align-items: center;
       background-color: #0f172a;
       padding: 0.8rem;
-      border-radius: 8px;
-      border: 1px solid #334155;
-    }
-
-    .cart-item-img {
-      width: 45px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
-
-    .cart-item-info {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      gap: 0.2rem;
+      border-radius: 6px;
     }
 
     .cart-item-title {
-      font-weight: 700;
-      font-size: 0.88rem;
+      font-weight: bold;
+      font-size: 0.9rem;
     }
 
     .cart-item-price {
       color: #4ade80;
       font-size: 0.85rem;
-      font-weight: 700;
     }
 
     .btn-remove {
@@ -385,15 +335,9 @@
       color: white;
       border: none;
       padding: 0.3rem 0.6rem;
-      border-radius: 6px;
+      border-radius: 4px;
       cursor: pointer;
       font-size: 0.8rem;
-      font-weight: 600;
-      transition: background-color 0.2s;
-    }
-
-    .btn-remove:hover {
-      background-color: #dc2626;
     }
 
     .cart-footer {
@@ -404,7 +348,7 @@
 
     .cart-total {
       font-size: 1.3rem;
-      font-weight: 800;
+      font-weight: bold;
       text-align: right;
       color: #4ade80;
       margin-bottom: 1rem;
@@ -416,15 +360,10 @@
       color: white;
       border: none;
       padding: 0.8rem;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      font-weight: 800;
+      font-weight: bold;
       font-size: 1rem;
-      transition: background-color 0.2s;
-    }
-
-    .btn-checkout:hover {
-      background-color: #16a34a;
     }
 
     .overlay {
@@ -433,8 +372,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(2px);
+      background: rgba(0, 0, 0, 0.5);
       z-index: 150;
       display: none;
     }
@@ -459,7 +397,6 @@
 
   <div class="container">
 
-    <!-- BARRE DE RECHERCHE ET FILTRES DE GENRE -->
     <div class="controls-section">
       <input type="text" id="search-bar" class="search-input" placeholder="🔍 Rechercher un anime ou un manga..." oninput="filterData()">
       <div class="filter-tags">
@@ -473,13 +410,11 @@
       </div>
     </div>
 
-    <!-- CLASSEMENT DES 50 ANIMES -->
     <section id="ranking">
       <h2>🏆 Top 50 Animes</h2>
       <div class="ranking-list" id="ranking-list"></div>
     </section>
 
-    <!-- BOUTIQUE DE MANGAS -->
     <section id="shop">
       <h2>📚 Boutique Mangas</h2>
       <div class="manga-grid" id="manga-grid"></div>
@@ -497,18 +432,214 @@
       <p style="color: #94a3b8;">Votre panier est vide.</p>
     </div>
     <div class="cart-footer">
-       <div class="cart-total">Total : <span id="cart-total-price">0.00</span> €</div>
+      <div class="cart-total">Total : <span id="cart-total-price">0.00</span> €</div>
       <button class="btn-checkout" onclick="checkout()">Commander</button>
     </div>
   </div>
 
   <script>
-    // LISTE OFFICIELLE DU TOP 50 ANIMES AVEC IMAGES DE COUVERTURE (CDN MyAnimeList)
+    const fallbackImage = "https://via.placeholder.com/200x300/1e293b/38bdf8?text=Anime";
+
     const animes = [
       { rank: 1, title: "Frieren: Beyond Journey's End", note: "9.3/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/1015/138006.jpg" },
       { rank: 2, title: "Fullmetal Alchemist: Brotherhood", note: "9.1/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1208/94745.jpg" },
-      { rank: 3, title: "Attack on Titan (Shingeki no Kyojin)", note: "9.1/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/10/47339.jpg" },
-      { rank: 4, title: "Bleach: Thousand-Year Blood War", note: "8.9/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1908/120036.jpg" },
+      { rank: 3, title: "Attack on Titan", note: "9.1/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/10/47347.jpg" },
+      { rank: 4, title: "Bleach: Thousand-Year Blood War", note: "8.9/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1908/135431.jpg" },
       { rank: 5, title: "Steins;Gate", note: "8.9/10", category: "Seinen", image: "https://cdn.myanimelist.net/images/anime/1935/127974.jpg" },
       { rank: 6, title: "Gintama°", note: "8.8/10", category: "Comédie", image: "https://cdn.myanimelist.net/images/anime/3/72078.jpg" },
-      { rank: 7, title: "Hunter x Hunter (2011)", note: "8.8/10
+      { rank: 7, title: "Hunter x Hunter (2011)", note: "8.8/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1337/99013.jpg" },
+      { rank: 8, title: "Demon Slayer (Kimetsu no Yaiba)", note: "8.7/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1286/99889.jpg" },
+      { rank: 9, title: "Jujutsu Kaisen", note: "8.6/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/1171/109222.jpg" },
+      { rank: 10, title: "Monster", note: "8.8/10", category: "Seinen", image: "https://cdn.myanimelist.net/images/anime/10/18741.jpg" },
+      { rank: 11, title: "Code Geass: Lelouch of the Rebellion", note: "8.7/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/1032/135088.jpg" },
+      { rank: 12, title: "Vinland Saga", note: "8.7/10", category: "Seinen", image: "https://cdn.myanimelist.net/images/anime/1500/103005.jpg" },
+      { rank: 13, title: "One Piece", note: "8.7/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1244/138851.jpg" },
+      { rank: 14, title: "Chainsaw Man", note: "8.5/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/1806/126216.jpg" },
+      { rank: 15, title: "Death Note", note: "8.6/10", category: "Seinen", image: "https://cdn.myanimelist.net/images/anime/1079/138100.jpg" },
+      { rank: 16, title: "Mob Psycho 100", note: "8.5/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/1918/96303.jpg" },
+      { rank: 17, title: "Haikyuu!!", note: "8.5/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1107/116212.jpg" },
+      { rank: 18, title: "Cowboy Bebop", note: "8.7/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/4/19644.jpg" },
+      { rank: 19, title: "One Punch Man", note: "8.5/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/12/76049.jpg" },
+      { rank: 20, title: "Berserk", note: "8.7/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/1552/121285.jpg" },
+      { rank: 21, title: "Kingdom", note: "8.6/10", category: "Seinen", image: "https://cdn.myanimelist.net/images/anime/1218/120976.jpg" },
+      { rank: 22, title: "JoJo's Bizarre Adventure", note: "8.4/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/3/40409.jpg" },
+      { rank: 23, title: "Les Carnets de l'Apothicaire", note: "8.6/10", category: "Drame", image: "https://cdn.myanimelist.net/images/anime/1708/138033.jpg" },
+      { rank: 24, title: "Cyberpunk: Edgerunners", note: "8.3/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/1818/126436.jpg" },
+      { rank: 25, title: "Solo Leveling", note: "8.3/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/1370/140362.jpg" },
+      { rank: 26, title: "Naruto Shippuden", note: "8.3/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1565/111305.jpg" },
+      { rank: 27, title: "Dragon Ball Z", note: "8.2/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1607/117212.jpg" },
+      { rank: 28, title: "My Hero Academia", note: "8.2/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/10/78745.jpg" },
+      { rank: 29, title: "Spy x Family", note: "8.2/10", category: "Comédie", image: "https://cdn.myanimelist.net/images/anime/1441/122795.jpg" },
+      { rank: 30, title: "Neon Genesis Evangelion", note: "8.3/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/1314/112028.jpg" },
+      { rank: 31, title: "Made in Abyss", note: "8.6/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/6/86733.jpg" },
+      { rank: 32, title: "Blue Lock", note: "8.2/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1258/126929.jpg" },
+      { rank: 33, title: "Tokyo Ghoul", note: "7.8/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/5/64449.jpg" },
+      { rank: 34, title: "Re:Zero", note: "8.2/10", category: "Dark Fantasy", image: "https://cdn.myanimelist.net/images/anime/11/79410.jpg" },
+      { rank: 35, title: "Assassination Classroom", note: "8.1/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/5/71611.jpg" },
+      { rank: 36, title: "Kaguya-sama: Love is War", note: "8.7/10", category: "Comédie", image: "https://cdn.myanimelist.net/images/anime/1295/106551.jpg" },
+      { rank: 37, title: "Black Clover", note: "8.1/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/2/88336.jpg" },
+      { rank: 38, title: "Samurai Champloo", note: "8.5/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/11/29134.jpg" },
+      { rank: 39, title: "Your Lie in April", note: "8.6/10", category: "Drame", image: "https://cdn.myanimelist.net/images/anime/3/67177.jpg" },
+      { rank: 40, title: "Gurren Lagann", note: "8.6/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/4/5123.jpg" },
+      { rank: 41, title: "Oshi no Ko", note: "8.4/10", category: "Drame", image: "https://cdn.myanimelist.net/images/anime/1812/134736.jpg" },
+      { rank: 42, title: "Fate/Zero", note: "8.3/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/2/33089.jpg" },
+      { rank: 43, title: "Parasyte -the maxim-", note: "8.3/10", category: "Seinen", image: "https://cdn.myanimelist.net/images/anime/3/73178.jpg" },
+      { rank: 44, title: "Psycho-Pass", note: "8.3/10", category: "Seinen", image: "https://cdn.myanimelist.net/images/anime/5/43399.jpg" },
+      { rank: 45, title: "Dr. STONE", note: "8.2/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1423/101512.jpg" },
+      { rank: 46, title: "Bleach", note: "7.9/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/3/40451.jpg" },
+      { rank: 47, title: "Slam Dunk", note: "8.5/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/12/86890.jpg" },
+      { rank: 48, title: "Hajime no Ippo", note: "8.7/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/4/86616.jpg" },
+      { rank: 49, title: "Tokyo Revengers", note: "7.9/10", category: "Action", image: "https://cdn.myanimelist.net/images/anime/1830/114128.jpg" },
+      { rank: 50, title: "Fire Force", note: "7.7/10", category: "Shonen", image: "https://cdn.myanimelist.net/images/anime/1531/101340.jpg" }
+    ];
+
+    const mangas = [
+      { id: 1, title: "One Piece - Tome 100", price: 6.99, image: "https://cdn.myanimelist.net/images/anime/1244/138851.jpg", category: "Shonen" },
+      { id: 2, title: "Jujutsu Kaisen - Tome 01", price: 6.95, image: "https://cdn.myanimelist.net/images/anime/1171/109222.jpg", category: "Dark Fantasy" },
+      { id: 3, title: "Chainsaw Man - Tome 01", price: 7.20, image: "https://cdn.myanimelist.net/images/anime/1806/126216.jpg", category: "Dark Fantasy" },
+      { id: 4, title: "Spy x Family - Tome 01", price: 6.95, image: "https://cdn.myanimelist.net/images/anime/1441/122795.jpg", category: "Comédie" },
+      { id: 5, title: "Demon Slayer - Tome 01", price: 6.99, image: "https://cdn.myanimelist.net/images/anime/1286/99889.jpg", category: "Shonen" },
+      { id: 6, title: "My Hero Academia - Tome 01", price: 6.90, image: "https://cdn.myanimelist.net/images/anime/10/78745.jpg", category: "Shonen" },
+      { id: 7, title: "Berserk - Tome 01", price: 8.90, image: "https://cdn.myanimelist.net/images/anime/1552/121285.jpg", category: "Dark Fantasy" },
+      { id: 8, title: "Tokyo Revengers - Tome 01", price: 6.90, image: "https://cdn.myanimelist.net/images/anime/1830/114128.jpg", category: "Action" }
+    ];
+
+    let cart = [];
+    let currentCategory = "Tous";
+
+    function displayRanking(filterText = "") {
+      const container = document.getElementById('ranking-list');
+      container.innerHTML = '';
+      
+      const filtered = animes.filter(anime => {
+        const matchesSearch = anime.title.toLowerCase().includes(filterText.toLowerCase());
+        const matchesCategory = currentCategory === "Tous" || anime.category === currentCategory;
+        return matchesSearch && matchesCategory;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="color: #94a3b8; text-align: center; padding: 2rem;">Aucun anime trouvé.</p>';
+        return;
+      }
+
+      filtered.forEach(anime => {
+        container.innerHTML += `
+          <div class="ranking-item">
+            <span class="rank">#${anime.rank}</span>
+            <img class="anime-poster" src="${anime.image}" alt="${anime.title}" onerror="this.src='${fallbackImage}'">
+            <div class="anime-info">
+              <span class="anime-title">${anime.title}</span>
+              <span class="anime-genre">${anime.category}</span>
+            </div>
+            <span class="rating">⭐ ${anime.note}</span>
+          </div>
+        `;
+      });
+    }
+
+    function displayShop(filterText = "") {
+      const container = document.getElementById('manga-grid');
+      container.innerHTML = '';
+
+      const filtered = mangas.filter(manga => {
+        const matchesSearch = manga.title.toLowerCase().includes(filterText.toLowerCase());
+        const matchesCategory = currentCategory === "Tous" || manga.category === currentCategory;
+        return matchesSearch && matchesCategory;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="color: #94a3b8; grid-column: 1/-1; text-align: center;">Aucun manga trouvé.</p>';
+        return;
+      }
+
+      filtered.forEach(manga => {
+        container.innerHTML += `
+          <div class="manga-card">
+            <img class="manga-cover" src="${manga.image}" alt="${manga.title}" onerror="this.src='${fallbackImage}'">
+            <div class="manga-details">
+              <div class="manga-title">${manga.title}</div>
+              <div class="manga-price">${manga.price.toFixed(2)} €</div>
+              <button class="btn-add" onclick="addToCart(${manga.id})">Ajouter au panier</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function addToCart(mangaId) {
+      const manga = mangas.find(m => m.id === mangaId);
+      cart.push(manga);
+      updateCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItemsContainer = document.getElementById('cart-items');
+      const cartCount = document.getElementById('cart-count');
+      const cartTotalPrice = document.getElementById('cart-total-price');
+
+      cartCount.innerText = cart.length;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = '<p style="color: #94a3b8;">Votre panier est vide.</p>';
+        cartTotalPrice.innerText = '0.00';
+        return;
+      }
+
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        cartItemsContainer.innerHTML += `
+          <div class="cart-item">
+            <div>
+              <div class="cart-item-title">${item.title}</div>
+              <div class="cart-item-price">${item.price.toFixed(2)} €</div>
+            </div>
+            <button class="btn-remove" onclick="removeFromCart(${index})">Supprimer</button>
+          </div>
+        `;
+      });
+
+      cartTotalPrice.innerText = total.toFixed(2);
+    }
+
+    function toggleCart() {
+      document.getElementById('cart-drawer').classList.toggle('open');
+      document.getElementById('overlay').classList.toggle('open');
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert("Votre panier est vide !");
+      } else {
+        alert("Merci pour votre commande !");
+        cart = [];
+        updateCart();
+        toggleCart();
+      }
+    }
+
+    function filterData() {
+      const query = document.getElementById('search-bar').value;
+      displayRanking(query);
+      displayShop(query);
+    }
+
+    function setCategory(category, btn) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterData();
+    }
+
+    displayRanking();
+    displayShop();
+  </script>
+</body>
+</html>
