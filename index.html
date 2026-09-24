@@ -119,14 +119,12 @@
     <!-- HERO CAROUSEL -->
     <section id="hero" class="relative w-full h-[550px] sm:h-[620px] overflow-hidden bg-dark-card border-b border-dark-border">
         <div id="heroContainer" class="w-full h-full relative">
-            <!-- Dynamic Hero Content populated by Jikan API -->
             <div class="w-full h-full flex items-center justify-center text-amber-gold gap-3">
                 <i class="fa-solid fa-circle-notch animate-spin text-3xl"></i>
                 <span class="font-bold">Chargement des tendances en direct...</span>
             </div>
         </div>
 
-        <!-- Carousel Controls -->
         <div class="absolute bottom-6 right-6 sm:bottom-10 sm:right-12 z-20 flex items-center gap-3">
             <button onclick="prevHero()" class="w-12 h-12 rounded-full bg-dark-card/90 border border-dark-border hover:border-amber-gold text-white flex items-center justify-center backdrop-blur-sm transition">
                 <i class="fa-solid fa-chevron-left"></i>
@@ -140,21 +138,15 @@
     <!-- MAIN CONTENT -->
     <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 flex-grow w-full">
 
-        <!-- Mobile Search (visible only on mobile) -->
         <div class="md:hidden relative w-full">
             <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
             <input type="text" id="mobileSearchInput" oninput="debounceSearchMobile()" placeholder="Rechercher un anime..." 
                    class="w-full bg-dark-card border border-dark-border rounded-full py-2.5 pl-11 pr-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-gold">
         </div>
 
-        <!-- Category Filters & Sorting -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-dark-border pb-6">
-            <!-- Genre Buttons -->
-            <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 no-scrollbar" id="genreFilters">
-                <!-- Genre buttons injected dynamically by JS -->
-            </div>
+            <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 no-scrollbar" id="genreFilters"></div>
             
-            <!-- Sorting Option -->
             <div class="flex items-center gap-3 text-sm text-gray-400 w-full sm:w-auto justify-end">
                 <span class="font-semibold whitespace-nowrap">Trier par:</span>
                 <select id="sortBy" onchange="applySorting()" class="bg-dark-card border border-dark-border rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-gold">
@@ -165,7 +157,6 @@
             </div>
         </div>
 
-        <!-- Anime Section Grid -->
         <section>
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
@@ -175,10 +166,7 @@
                 <span id="resultCount" class="text-sm font-bold text-amber-gold/80 bg-amber-gold/10 px-3 py-1 rounded-full border border-amber-gold/20">0 résultats</span>
             </div>
 
-            <!-- Anime Cards Grid -->
-            <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                <!-- Dynamic Anime Cards loaded from Jikan API -->
-            </div>
+            <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
         </section>
 
     </main>
@@ -189,9 +177,7 @@
             <button onclick="closeModal()" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-amber-gold hover:text-black transition">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-            <div id="modalContent">
-                <!-- Dynamic Modal Content -->
-            </div>
+            <div id="modalContent"></div>
         </div>
     </div>
 
@@ -207,9 +193,7 @@
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
-                <div id="favoritesList" class="space-y-4">
-                    <!-- Favorite items -->
-                </div>
+                <div id="favoritesList" class="space-y-4"></div>
             </div>
             <button onclick="clearFavorites()" class="w-full mt-6 py-3 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white font-bold transition border border-red-500/20">
                 Vider ma liste
@@ -230,12 +214,10 @@
     </footer>
 
     <script>
-        // JIKAN API BASE URL
         const JIKAN_API_BASE = 'https://api.jikan.moe/v4';
 
-        // State Management
-        let topAnimes = [];          // Original list fetched from API
-        let displayedAnimes = [];    // Filtered / sorted list
+        let topAnimes = [];
+        let displayedAnimes = [];
         let activeHeroIndex = 0;
         let selectedGenre = "Tous";
         let searchTimeout = null;
@@ -243,13 +225,11 @@
 
         const GENRE_LIST = ["Tous", "Action", "Aventure", "Fantastique", "Surnaturel", "Sci-Fi", "Comédie", "Drame"];
 
-        // Init App on page load
         window.onload = function() {
             renderGenreFilters();
             fetchTopAnimes();
             updateFavoritesBadge();
 
-            // Hero autoplay loop
             setInterval(() => {
                 if (topAnimes.length > 0) {
                     nextHero();
@@ -257,7 +237,6 @@
             }, 8000);
         };
 
-        // 1. Fetch Top Trending Animes from Official MyAnimeList API
         async function fetchTopAnimes() {
             try {
                 showGridLoading();
@@ -282,7 +261,6 @@
             }
         }
 
-        // Format API item into clean local schema
         function formatAnimeData(item) {
             return {
                 id: item.mal_id,
@@ -303,7 +281,6 @@
             };
         }
 
-        // 2. Render Hero Carousel Banner
         function renderHero() {
             if (topAnimes.length === 0) return;
             const anime = topAnimes[activeHeroIndex];
@@ -357,7 +334,6 @@
             renderHero();
         }
 
-        // 3. Render Genre Filter Buttons
         function renderGenreFilters() {
             const filterContainer = document.getElementById('genreFilters');
             filterContainer.innerHTML = GENRE_LIST.map(genre => `
@@ -374,7 +350,6 @@
             applySorting();
         }
 
-        // 4. Live Search with Debounce via Jikan API
         function debounceSearch() {
             const spinner = document.getElementById('searchSpinner');
             spinner.classList.remove('hidden');
@@ -419,17 +394,14 @@
             }
         }
 
-        // 5. Sorting Logic
         function applySorting() {
             const sortBy = document.getElementById('sortBy').value;
             let filtered = [...displayedAnimes];
 
-            // Genre filtering
             if (selectedGenre !== "Tous") {
                 filtered = filtered.filter(a => a.genres.includes(selectedGenre));
             }
 
-            // Sorting
             if (sortBy === "score") {
                 filtered.sort((a, b) => (parseFloat(b.score) || 0) - (parseFloat(a.score) || 0));
             } else if (sortBy === "popularity") {
@@ -441,7 +413,6 @@
             renderGrid(filtered);
         }
 
-        // 6. Grid Rendering
         function showGridLoading() {
             const grid = document.getElementById('animeGrid');
             grid.innerHTML = Array(10).fill(0).map(() => `
@@ -473,22 +444,18 @@
                 const isFav = isFavorite(anime.id);
                 return `
                     <div class="group relative bg-dark-card border border-dark-border rounded-2xl overflow-hidden hover:border-amber-gold/50 transition-all duration-300 hover:-translate-y-1.5 shadow-xl flex flex-col justify-between card-glow">
-                        <!-- High Res Official Poster -->
                         <div class="relative aspect-[2/3] overflow-hidden bg-dark-hover cursor-pointer" onclick="openModal(${anime.id})">
                             <img src="${anime.poster}" alt="${anime.englishTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
                             
-                            <!-- Rating Badge -->
                             <div class="absolute top-3 right-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-black text-amber-gold flex items-center gap-1 shadow">
                                 <i class="fa-solid fa-star"></i> ${anime.score}
                             </div>
 
-                            <!-- Favorite Toggle Button -->
                             <button onclick="event.stopPropagation(); toggleFavorite(${anime.id})" class="absolute top-3 left-3 w-8 h-8 rounded-lg bg-black/80 backdrop-blur-md text-white flex items-center justify-center hover:text-amber-gold transition shadow">
                                 <i class="fa-${isFav ? 'solid text-amber-gold' : 'regular'} fa-bookmark"></i>
                             </button>
                         </div>
 
-                        <!-- Info Footer -->
                         <div class="p-4 flex-grow flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center gap-2 text-[11px] text-amber-gold font-bold mb-1 uppercase tracking-wider">
@@ -511,10 +478,8 @@
             }).join('');
         }
 
-        // 7. Modal Details Logic
         function openModal(malId) {
-            // Find locally or fetch from displayed/top
-            const anime = displayedAnimes.find(a => a.id === malId) || topAnimes.find(a => a.id === malId);
+            const anime = displayedAnimes.find(a => a.id === malId) || topAnimes.find(a => a.id === malId) || favorites.find(a => a.id === malId);
             if (!anime) return;
 
             const isFav = isFavorite(anime.id);
@@ -528,7 +493,6 @@
                 
                 <div class="p-6 sm:p-8 -mt-24 relative z-10 space-y-6">
                     <div class="flex flex-col sm:flex-row gap-6 items-start">
-                        <!-- Poster -->
                         <img src="${anime.poster}" alt="${anime.englishTitle}" class="w-36 sm:w-44 rounded-2xl border-2 border-amber-gold/40 shadow-2xl flex-shrink-0 object-cover">
                         
                         <div class="space-y-3 flex-1">
@@ -546,13 +510,11 @@
                         </div>
                     </div>
 
-                    <!-- Synopsis -->
                     <div class="space-y-2 border-t border-dark-border pt-4">
                         <h4 class="text-xs font-black text-amber-gold uppercase tracking-wider">Synopsis Officiel</h4>
                         <p class="text-gray-300 text-sm sm:text-base leading-relaxed">${anime.synopsis}</p>
                     </div>
 
-                    <!-- Trailer Embed if available -->
                     ${anime.trailerEmbed ? `
                         <div class="space-y-2 border-t border-dark-border pt-4">
                             <h4 class="text-xs font-black text-amber-gold uppercase tracking-wider">Bande-Annonce Officielle</h4>
@@ -562,7 +524,6 @@
                         </div>
                     ` : ''}
 
-                    <!-- Action buttons -->
                     <div class="flex items-center gap-4 pt-4 border-t border-dark-border">
                         <a href="${anime.url}" target="_blank" rel="noopener" class="flex-1 py-3.5 rounded-xl bg-amber-gold hover:bg-yellow-400 text-black font-extrabold text-center transition flex items-center justify-center gap-2 shadow-lg shadow-amber-gold/20">
                             <i class="fa-solid fa-external-link"></i> Voir sur MyAnimeList
@@ -582,13 +543,12 @@
             document.getElementById('animeModal').classList.add('hidden');
         }
 
-        // 8. Favorites Storage Management
         function isFavorite(id) {
             return favorites.some(fav => fav.id === id);
         }
 
         function toggleFavorite(id) {
-            const anime = displayedAnimes.find(a => a.id === id) || topAnimes.find(a => a.id === id);
+            const anime = displayedAnimes.find(a => a.id === id) || topAnimes.find(a => a.id === id) || favorites.find(a => a.id === id);
             if (!anime) return;
 
             if (isFavorite(id)) {
@@ -599,18 +559,15 @@
 
             localStorage.setItem('aniRealm_jikan_favs', JSON.stringify(favorites));
             updateFavoritesBadge();
+            renderFavoritesList();
             applySorting();
             renderHero();
-
-            if (!document.getElementById('favModal').classList.contains('hidden')) {
-                renderFavoritesList();
-            }
         }
 
         function updateFavoritesBadge() {
             const badge = document.getElementById('favBadge');
+            badge.innerText = favorites.length;
             if (favorites.length > 0) {
-                badge.innerText = favorites.length;
                 badge.classList.remove('hidden');
             } else {
                 badge.classList.add('hidden');
@@ -626,24 +583,23 @@
         }
 
         function renderFavoritesList() {
-            const container = document.getElementById('favoritesList');
-
+            const list = document.getElementById('favoritesList');
             if (favorites.length === 0) {
-                container.innerHTML = `
+                list.innerHTML = `
                     <div class="text-center py-12 text-gray-500">
-                        <i class="fa-solid fa-bookmark text-4xl mb-2 text-dark-border"></i>
-                        <p class="text-sm font-semibold">Votre liste est vide.</p>
+                        <i class="fa-regular fa-bookmark text-3xl mb-2 text-gray-600"></i>
+                        <p class="text-sm">Votre liste est vide.</p>
                     </div>
                 `;
                 return;
             }
 
-            container.innerHTML = favorites.map(anime => `
-                <div class="flex items-center justify-between gap-4 p-3 bg-dark-hover border border-dark-border rounded-xl">
-                    <img src="${anime.poster}" class="w-12 h-16 object-cover rounded-lg flex-shrink-0" alt="${anime.englishTitle}">
+            list.innerHTML = favorites.map(anime => `
+                <div class="flex items-center gap-4 bg-dark-hover p-3 rounded-xl border border-dark-border">
+                    <img src="${anime.poster}" alt="${anime.englishTitle}" class="w-12 h-16 object-cover rounded-lg">
                     <div class="flex-1 min-w-0">
-                        <h4 class="text-sm font-bold text-white truncate">${anime.englishTitle}</h4>
-                        <span class="text-xs text-amber-gold font-semibold"><i class="fa-solid fa-star"></i> ${anime.score}</span>
+                        <h4 class="text-sm font-bold text-white truncate cursor-pointer hover:text-amber-gold" onclick="openModal(${anime.id}); toggleFavoritesModal();">${anime.englishTitle}</h4>
+                        <p class="text-xs text-amber-gold font-semibold"><i class="fa-solid fa-star"></i> ${anime.score}</p>
                     </div>
                     <button onclick="toggleFavorite(${anime.id})" class="text-gray-400 hover:text-red-400 p-2">
                         <i class="fa-solid fa-trash text-sm"></i>
@@ -654,7 +610,7 @@
 
         function clearFavorites() {
             favorites = [];
-            localStorage.setItem('aniRealm_jikan_favs', JSON.stringify(favorites));
+            localStorage.removeItem('aniRealm_jikan_favs');
             updateFavoritesBadge();
             renderFavoritesList();
             applySorting();
@@ -663,6 +619,13 @@
 
         function resetToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('searchInput').value = '';
+            document.getElementById('mobileSearchInput').value = '';
+            document.getElementById('sectionTitle').innerText = "Top Animes Tendances";
+            selectedGenre = "Tous";
+            renderGenreFilters();
+            displayedAnimes = [...topAnimes];
+            applySorting();
         }
     </script>
 </body>
