@@ -1,622 +1,669 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AniShop - Classement & Boutique Manga</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    body {
-      background-color: #0f172a;
-      color: #f8fafc;
-      padding-bottom: 60px;
-    }
-
-    /* EN-TÊTE ET NAVIGATION */
-    header {
-      background-color: #1e293b;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    nav a {
-      color: #94a3b8;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: #38bdf8;
-    }
-
-    .cart-btn-nav {
-      background-color: #0284c7;
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* CONTENEUR PRINCIPAL */
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    /* BARRE DE RECHERCHE ET FILTRES */
-    .controls-section {
-      background-color: #1e293b;
-      padding: 1.5rem;
-      border-radius: 10px;
-      margin-bottom: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      border: 1px solid #334155;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border-radius: 6px;
-      border: 1px solid #334155;
-      background-color: #0f172a;
-      color: #f8fafc;
-      font-size: 1rem;
-    }
-
-    .search-input:focus {
-      outline: 2px solid #38bdf8;
-    }
-
-    .filter-tags {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .filter-btn {
-      background-color: #0f172a;
-      color: #94a3b8;
-      border: 1px solid #334155;
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: all 0.2s;
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background-color: #38bdf8;
-      color: #0f172a;
-      border-color: #38bdf8;
-    }
-
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      border-left: 4px solid #38bdf8;
-      padding-left: 0.75rem;
-      margin-top: 2rem;
-    }
-
-    /* CLASSEMENT ANIMES */
-    .ranking-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      max-height: 500px;
-      overflow-y: auto;
-      padding: 1rem;
-      background-color: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 8px;
-    }
-
-    .ranking-item {
-      background-color: #1e293b;
-      padding: 0.9rem 1.2rem;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background-color 0.2s;
-    }
-
-    .ranking-item:hover {
-      background-color: #334155;
-    }
-
-    .rank {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #f59e0b;
-      width: 50px;
-    }
-
-    .anime-title {
-      font-size: 1rem;
-      flex-grow: 1;
-    }
-
-    .anime-genre {
-      font-size: 0.8rem;
-      background-color: #334155;
-      color: #94a3b8;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      margin-right: 1rem;
-    }
-
-    .rating {
-      background-color: #0f172a;
-      padding: 0.3rem 0.7rem;
-      border-radius: 15px;
-      font-weight: bold;
-      color: #38bdf8;
-      font-size: 0.85rem;
-    }
-
-    /* BOUTIQUE MANGA */
-    .manga-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .manga-card {
-      background-color: #1e293b;
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border: 1px solid #334155;
-      transition: transform 0.2s;
-    }
-
-    .manga-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .manga-cover {
-      width: 100%;
-      height: 200px;
-      background-color: #334155;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-    }
-
-    .manga-info {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .manga-title {
-      font-size: 1rem;
-      font-weight: bold;
-    }
-
-    .manga-price {
-      font-size: 1.2rem;
-      color: #4ade80;
-      font-weight: bold;
-    }
-
-    .btn-add {
-      background-color: #0284c7;
-      color: white;
-      border: none;
-      padding: 0.6rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
-
-    .btn-add:hover {
-      background-color: #0369a1;
-    }
-
-    /* PANNEAU LATÉRAL DU PANIER (DRAWER) */
-    .cart-drawer {
-      position: fixed;
-      top: 0;
-      right: -400px;
-      width: 380px;
-      height: 100%;
-      background-color: #1e293b;
-      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-      z-index: 200;
-      transition: right 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      padding: 1.5rem;
-    }
-
-    .cart-drawer.open {
-      right: 0;
-    }
-
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .close-cart {
-      background: none;
-      border: none;
-      color: #94a3b8;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .cart-items {
-      flex-grow: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #0f172a;
-      padding: 0.8rem;
-      border-radius: 6px;
-    }
-
-    .cart-item-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cart-item-title {
-      font-weight: bold;
-      font-size: 0.9rem;
-    }
-
-    .cart-item-price {
-      color: #4ade80;
-      font-size: 0.85rem;
-    }
-
-    .btn-remove {
-      background-color: #ef4444;
-      color: white;
-      border: none;
-      padding: 0.3rem 0.6rem;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
-
-    .cart-footer {
-      border-top: 1px solid #334155;
-      padding-top: 1rem;
-      margin-top: 1rem;
-    }
-
-    .cart-total {
-      font-size: 1.3rem;
-      font-weight: bold;
-      text-align: right;
-      color: #4ade80;
-      margin-bottom: 1rem;
-    }
-
-    .btn-checkout {
-      width: 100%;
-      background-color: #22c55e;
-      color: white;
-      border: none;
-      padding: 0.8rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1rem;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 150;
-      display: none;
-    }
-
-    .overlay.open {
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniRealm - Hub Anime Premium dynamic</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            base: '#0B0B0E',
+                            card: '#14141B',
+                            hover: '#1E1E28',
+                            border: '#282836'
+                        },
+                        amber: {
+                            gold: '#FFB703',
+                            accent: '#F59E0B',
+                            glow: '#FFB70333'
+                        },
+                        purple: {
+                            neon: '#9D4EDD',
+                            glow: '#9D4EDD33'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0B0E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #282836;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFB703;
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(11, 11, 14, 0.2) 0%, rgba(11, 11, 14, 0.8) 70%, #0B0B0E 100%);
+        }
+        .gold-glow {
+            box-shadow: 0 0 25px rgba(255, 183, 3, 0.25);
+        }
+        .card-glow:hover {
+            box-shadow: 0 10px 30px -10px rgba(255, 183, 3, 0.2);
+        }
+        /* Hide scrollbars for clean filter rows */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-dark-base text-gray-200 font-sans min-h-screen flex flex-col selection:bg-amber-gold selection:text-black">
 
-  <!-- EN-TÊTE -->
-  <header>
-    <div class="logo">AniShop ⛩️</div>
-    <nav>
-      <a href="#ranking">Classement</a>
-      <a href="#shop">Boutique Manga</a>
-      <button class="cart-btn-nav" onclick="toggleCart()">
-        🛒 Panier (<span id="cart-count">0</span>)
-      </button>
-    </nav>
-  </header>
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-dark-base/90 backdrop-blur-md border-b border-dark-border transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="resetToTop()">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-gold to-purple-neon flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-amber-gold/20">
+                        ⛩️
+                    </div>
+                    <span class="text-2xl font-black tracking-wider text-white">ANI<span class="text-amber-gold">REALM</span></span>
+                </div>
 
-  <div class="container">
+                <!-- Live Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="searchInput" oninput="debounceSearch()" placeholder="Rechercher en direct via Jikan API (MAL)..." 
+                           class="w-full bg-dark-card border border-dark-border rounded-full py-2.5 pl-11 pr-10 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-gold transition">
+                    <button id="searchSpinner" class="hidden absolute right-4 top-1/2 -translate-y-1/2 text-amber-gold animate-spin">
+                        <i class="fa-solid fa-circle-notch"></i>
+                    </button>
+                </div>
 
-    <!-- BARRE DE RECHERCHE ET FILTRES DE GENRE -->
-    <div class="controls-section">
-      <input type="text" id="search-bar" class="search-input" placeholder="🔍 Rechercher un anime ou un manga..." oninput="filterData()">
-      <div class="filter-tags">
-        <button class="filter-btn active" onclick="setCategory('Tous', this)">Tous</button>
-        <button class="filter-btn" onclick="setCategory('Shonen', this)">Shonen</button>
-        <button class="filter-btn" onclick="setCategory('Seinen', this)">Seinen</button>
-        <button class="filter-btn" onclick="setCategory('Dark Fantasy', this)">Dark Fantasy</button>
-        <button class="filter-btn" onclick="setCategory('Action', this)">Action</button>
-      </div>
-    </div>
+                <!-- Navigation Controls -->
+                <div class="flex items-center gap-4">
+                    <nav class="hidden lg:flex items-center gap-6 text-sm font-bold text-gray-300">
+                        <a href="#hero" class="hover:text-amber-gold transition">À la une</a>
+                        <a href="#catalog" class="hover:text-amber-gold transition">Tendance</a>
+                        <a href="#catalog" onclick="setGenreFilter('Action')" class="hover:text-amber-gold transition">Action</a>
+                    </nav>
+                    <button onclick="toggleFavoritesModal()" class="relative p-2.5 rounded-full bg-dark-card border border-dark-border hover:border-amber-gold text-gray-300 hover:text-amber-gold transition">
+                        <i class="fa-solid fa-bookmark text-lg"></i>
+                        <span id="favBadge" class="hidden absolute -top-1 -right-1 bg-amber-gold text-black text-xs font-black w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <!-- CLASSEMENT DES ANIMES (30 ANIMES) -->
-    <section id="ranking">
-      <h2>🏆 Top 30 Animes</h2>
-      <div class="ranking-list" id="ranking-list"></div>
+    <!-- HERO CAROUSEL -->
+    <section id="hero" class="relative w-full h-[550px] sm:h-[620px] overflow-hidden bg-dark-card border-b border-dark-border">
+        <div id="heroContainer" class="w-full h-full relative">
+            <!-- Dynamic Hero Content populated by Jikan API -->
+            <div class="w-full h-full flex items-center justify-center text-amber-gold gap-3">
+                <i class="fa-solid fa-circle-notch animate-spin text-3xl"></i>
+                <span class="font-bold">Chargement des tendances en direct...</span>
+            </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <div class="absolute bottom-6 right-6 sm:bottom-10 sm:right-12 z-20 flex items-center gap-3">
+            <button onclick="prevHero()" class="w-12 h-12 rounded-full bg-dark-card/90 border border-dark-border hover:border-amber-gold text-white flex items-center justify-center backdrop-blur-sm transition">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button onclick="nextHero()" class="w-12 h-12 rounded-full bg-dark-card/90 border border-dark-border hover:border-amber-gold text-white flex items-center justify-center backdrop-blur-sm transition">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
     </section>
 
-    <!-- BOUTIQUE DE MANGAS -->
-    <section id="shop">
-      <h2>📚 Boutique Mangas</h2>
-      <div class="manga-grid" id="manga-grid"></div>
-    </section>
+    <!-- MAIN CONTENT -->
+    <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 flex-grow w-full">
 
-  </div>
+        <!-- Mobile Search (visible only on mobile) -->
+        <div class="md:hidden relative w-full">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            <input type="text" id="mobileSearchInput" oninput="debounceSearchMobile()" placeholder="Rechercher un anime..." 
+                   class="w-full bg-dark-card border border-dark-border rounded-full py-2.5 pl-11 pr-4 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-gold">
+        </div>
 
-  <!-- PANIER LATÉRAL -->
-  <div class="overlay" id="overlay" onclick="toggleCart()"></div>
-  <div class="cart-drawer" id="cart-drawer">
-    <div class="cart-header">
-      <h3>Mon Panier 🛒</h3>
-      <button class="close-cart" onclick="toggleCart()">✖</button>
-    </div>
-    <div class="cart-items" id="cart-items">
-      <p style="color: #94a3b8;">Votre panier est vide.</p>
-    </div>
-    <div class="cart-footer">
-      <div class="cart-total">Total : <span id="cart-total-price">0.00</span> €</div>
-      <button class="btn-checkout" onclick="checkout()">Commander</button>
-    </div>
-  </div>
-
-  <script>
-    // LISTE DES 30 ANIMES
-    const animes = [
-      { rank: 1, title: "Attack on Titan (Shingeki no Kyojin)", note: "9.1/10", category: "Dark Fantasy" },
-      { rank: 2, title: "Fullmetal Alchemist: Brotherhood", note: "9.0/10", category: "Shonen" },
-      { rank: 3, title: "Bleach: Thousand-Year Blood War", note: "8.9/10", category: "Shonen" },
-      { rank: 4, title: "Demon Slayer (Kimetsu no Yaiba)", note: "8.7/10", category: "Shonen" },
-      { rank: 5, title: "Jujutsu Kaisen", note: "8.6/10", category: "Dark Fantasy" },
-      { rank: 6, title: "Hunter x Hunter (2011)", note: "8.6/10", category: "Shonen" },
-      { rank: 7, title: "One Piece", note: "8.5/10", category: "Shonen" },
-      { rank: 8, title: "Steins;Gate", note: "8.5/10", category: "Seinen" },
-      { rank: 9, title: "Chainsaw Man", note: "8.4/10", category: "Dark Fantasy" },
-      { rank: 10, title: "Vinland Saga", note: "8.4/10", category: "Seinen" },
-      { rank: 11, title: "Naruto Shippuden", note: "8.3/10", category: "Shonen" },
-      { rank: 12, title: "My Hero Academia", note: "8.2/10", category: "Shonen" },
-      { rank: 13, title: "Death Note", note: "8.6/10", category: "Seinen" },
-      { rank: 14, title: "Tokyo Ghoul", note: "7.8/10", category: "Dark Fantasy" },
-      { rank: 15, title: "Dragon Ball Z", note: "8.2/10", category: "Shonen" },
-      { rank: 16, title: "Berserk", note: "8.7/10", category: "Dark Fantasy" },
-      { rank: 17, title: "Code Geass", note: "8.7/10", category: "Action" },
-      { rank: 18, title: "Monster", note: "8.8/10", category: "Seinen" },
-      { rank: 19, title: "Mob Psycho 100", note: "8.5/10", category: "Action" },
-      { rank: 20, title: "One Punch Man", note: "8.5/10", category: "Action" },
-      { rank: 21, title: "Cyberpunk: Edgerunners", note: "8.3/10", category: "Action" },
-      { rank: 22, title: "JoJo's Bizarre Adventure", note: "8.4/10", category: "Shonen" },
-      { rank: 23, title: "Solo Leveling", note: "8.3/10", category: "Action" },
-      { rank: 24, title: "Spy x Family", note: "8.2/10", category: "Shonen" },
-      { rank: 25, title: "Haikyuu!!", note: "8.5/10", category: "Shonen" },
-      { rank: 26, title: "Black Clover", note: "8.1/10", category: "Shonen" },
-      { rank: 27, title: "Frieren: Beyond Journey's End", note: "9.2/10", category: "Dark Fantasy" },
-      { rank: 28, title: "Blue Lock", note: "8.2/10", category: "Shonen" },
-      { rank: 29, title: "Kingdom", note: "8.6/10", category: "Seinen" },
-      { rank: 30, title: "Neon Genesis Evangelion", note: "8.3/10", category: "Action" }
-    ];
-
-    // MANGAS AVEC EMOJIS D'ORIGINE
-    const mangas = [
-      { id: 1, title: "One Piece - Tome 100", price: 6.99, emoji: "🏴‍☠️", category: "Shonen" },
-      { id: 2, title: "Jujutsu Kaisen - Tome 01", price: 6.95, emoji: "⛩️", category: "Dark Fantasy" },
-      { id: 3, title: "Chainsaw Man - Tome 01", price: 7.20, emoji: "🪚", category: "Dark Fantasy" },
-      { id: 4, title: "Spy x Family - Tome 01", price: 6.95, emoji: "🕵️", category: "Shonen" },
-      { id: 5, title: "Demon Slayer - Tome 01", price: 6.99, emoji: "⚔️", category: "Shonen" },
-      { id: 6, title: "My Hero Academia - Tome 01", price: 6.90, emoji: "💥", category: "Shonen" },
-      { id: 7, title: "Berserk - Tome 01", price: 8.90, emoji: "🗡️", category: "Dark Fantasy" },
-      { id: 8, title: "Tokyo Revengers - Tome 01", price: 6.90, emoji: "👊", category: "Action" }
-    ];
-
-    let cart = [];
-    let currentCategory = "Tous";
-
-    // AFFICHAGE DU CLASSEMENT
-    function displayRanking(filterText = "") {
-      const container = document.getElementById('ranking-list');
-      container.innerHTML = '';
-      
-      const filtered = animes.filter(anime => {
-        const matchesSearch = anime.title.toLowerCase().includes(filterText.toLowerCase());
-        const matchesCategory = currentCategory === "Tous" || anime.category === currentCategory;
-        return matchesSearch && matchesCategory;
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = '<p style="color: #94a3b8; text-align: center;">Aucun anime trouvé.</p>';
-        return;
-      }
-
-      filtered.forEach(anime => {
-        container.innerHTML += `
-          <div class="ranking-item">
-            <span class="rank">#${anime.rank}</span>
-            <span class="anime-title">${anime.title}</span>
-            <span class="anime-genre">${anime.category}</span>
-            <span class="rating">⭐ ${anime.note}</span>
-          </div>
-        `;
-      });
-    }
-
-    // AFFICHAGE DE LA BOUTIQUE
-    function displayShop(filterText = "") {
-      const container = document.getElementById('manga-grid');
-      container.innerHTML = '';
-
-      const filtered = mangas.filter(manga => {
-        const matchesSearch = manga.title.toLowerCase().includes(filterText.toLowerCase());
-        const matchesCategory = currentCategory === "Tous" || manga.category === currentCategory;
-        return matchesSearch && matchesCategory;
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = '<p style="color: #94a3b8; grid-column: 1/-1; text-align: center;">Aucun manga trouvé.</p>';
-        return;
-      }
-
-      filtered.forEach(manga => {
-        container.innerHTML += `
-          <div class="manga-card">
-            <div class="manga-cover">${manga.emoji}</div>
-            <div class="manga-info">
-              <div class="manga-title">${manga.title}</div>
-              <div class="manga-price">${manga.price.toFixed(2)} €</div>
-              <button class="btn-add" onclick="addToCart(${manga.id})">Ajouter au panier</button>
+        <!-- Category Filters & Sorting -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-dark-border pb-6">
+            <!-- Genre Buttons -->
+            <div class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 no-scrollbar" id="genreFilters">
+                <!-- Genre buttons injected dynamically by JS -->
             </div>
-          </div>
-        `;
-      });
-    }
-
-    // GESTION DU PANIER
-    function addToCart(mangaId) {
-      const manga = mangas.find(m => m.id === mangaId);
-      cart.push(manga);
-      updateCart();
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
-
-    function updateCart() {
-      const cartItemsContainer = document.getElementById('cart-items');
-      const cartCount = document.getElementById('cart-count');
-      const cartTotalPrice = document.getElementById('cart-total-price');
-
-      cartCount.innerText = cart.length;
-
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p style="color: #94a3b8;">Votre panier est vide.</p>';
-        cartTotalPrice.innerText = '0.00';
-        return;
-      }
-
-      cartItemsContainer.innerHTML = '';
-      let total = 0;
-
-      cart.forEach((item, index) => {
-        total += item.price;
-        cartItemsContainer.innerHTML += `
-          <div class="cart-item">
-            <div class="cart-item-info">
-              <span class="cart-item-title">${item.title}</span>
-              <span class="cart-item-price">${item.price.toFixed(2)} €</span>
+            
+            <!-- Sorting Option -->
+            <div class="flex items-center gap-3 text-sm text-gray-400 w-full sm:w-auto justify-end">
+                <span class="font-semibold whitespace-nowrap">Trier par:</span>
+                <select id="sortBy" onchange="applySorting()" class="bg-dark-card border border-dark-border rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-gold">
+                    <option value="score">Note MAL (Haute à Basse)</option>
+                    <option value="popularity">Popularité</option>
+                    <option value="title">Titre (A-Z)</option>
+                </select>
             </div>
-            <button class="btn-remove" onclick="removeFromCart(${index})">Supprimer</button>
-          </div>
-        `;
-      });
+        </div>
 
-      cartTotalPrice.innerText = total.toFixed(2);
-    }
+        <!-- Anime Section Grid -->
+        <section>
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl sm:text-3xl font-black text-white flex items-center gap-3">
+                    <span class="w-2.5 h-8 bg-amber-gold rounded-full"></span>
+                    <span id="sectionTitle">Top Animes Tendances</span>
+                </h2>
+                <span id="resultCount" class="text-sm font-bold text-amber-gold/80 bg-amber-gold/10 px-3 py-1 rounded-full border border-amber-gold/20">0 résultats</span>
+            </div>
 
-    function toggleCart() {
-      document.getElementById('cart-drawer').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('open');
-    }
+            <!-- Anime Cards Grid -->
+            <div id="animeGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- Dynamic Anime Cards loaded from Jikan API -->
+            </div>
+        </section>
 
-    function checkout() {
-      if (cart.length === 0) {
-        alert("Votre panier est vide !");
-      } else {
-        alert("Merci pour votre commande !");
-        cart = [];
-        updateCart();
-        toggleCart();
-      }
-    }
+    </main>
 
-    // FILTRES ET RECHERCHE
-    function filterData() {
-      const query = document.getElementById('search-bar').value;
-      displayRanking(query);
-      displayShop(query);
-    }
+    <!-- ANIME DETAIL MODAL -->
+    <div id="animeModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="relative bg-dark-card border border-dark-border rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl my-8">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-amber-gold hover:text-black transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Dynamic Modal Content -->
+            </div>
+        </div>
+    </div>
 
-    function setCategory(category, btn) {
-      currentCategory = category;
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      filterData();
-    }
+    <!-- FAVORITES MODAL -->
+    <div id="favModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex justify-end">
+        <div class="bg-dark-card border-l border-dark-border w-full max-w-md h-full p-6 overflow-y-auto flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-dark-border mb-6">
+                    <h3 class="text-xl font-extrabold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-bookmark text-amber-gold"></i> Ma Liste d'Envies
+                    </h3>
+                    <button onclick="toggleFavoritesModal()" class="text-gray-400 hover:text-white">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+                <div id="favoritesList" class="space-y-4">
+                    <!-- Favorite items -->
+                </div>
+            </div>
+            <button onclick="clearFavorites()" class="w-full mt-6 py-3 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white font-bold transition border border-red-500/20">
+                Vider ma liste
+            </button>
+        </div>
+    </div>
 
-    // CHARGEMENT INITIAL
-    displayRanking();
-    displayShop();
-  </script>
+    <!-- FOOTER -->
+    <footer class="bg-dark-card border-t border-dark-border py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center text-sm text-gray-500">
+            <p>© 2026 AniRealm - Alimenté en direct par MyAnimeList (Jikan API v4).</p>
+            <div class="flex justify-center gap-6 mt-4 sm:mt-0">
+                <a href="#" class="hover:text-amber-gold">Mentions Légales</a>
+                <a href="#" class="hover:text-amber-gold">API Jikan</a>
+                <a href="#" class="hover:text-amber-gold">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JIKAN API BASE URL
+        const JIKAN_API_BASE = 'https://api.jikan.moe/v4';
+
+        // State Management
+        let topAnimes = [];          // Original list fetched from API
+        let displayedAnimes = [];    // Filtered / sorted list
+        let activeHeroIndex = 0;
+        let selectedGenre = "Tous";
+        let searchTimeout = null;
+        let favorites = JSON.parse(localStorage.getItem('aniRealm_jikan_favs')) || [];
+
+        const GENRE_LIST = ["Tous", "Action", "Aventure", "Fantastique", "Surnaturel", "Sci-Fi", "Comédie", "Drame"];
+
+        // Init App on page load
+        window.onload = function() {
+            renderGenreFilters();
+            fetchTopAnimes();
+            updateFavoritesBadge();
+
+            // Hero autoplay loop
+            setInterval(() => {
+                if (topAnimes.length > 0) {
+                    nextHero();
+                }
+            }, 8000);
+        };
+
+        // 1. Fetch Top Trending Animes from Official MyAnimeList API
+        async function fetchTopAnimes() {
+            try {
+                showGridLoading();
+                const response = await fetch(`${JIKAN_API_BASE}/top/anime?limit=25`);
+                const data = await response.json();
+                
+                if (data && data.data) {
+                    topAnimes = data.data.map(formatAnimeData);
+                    displayedAnimes = [...topAnimes];
+                    
+                    renderHero();
+                    applySorting();
+                }
+            } catch (error) {
+                console.error("Erreur de chargement Jikan API:", error);
+                document.getElementById('animeGrid').innerHTML = `
+                    <div class="col-span-full text-center py-12 text-red-400">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-3"></i>
+                        <p>Impossible de charger les données. Veuillez réessayer dans quelques instants.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Format API item into clean local schema
+        function formatAnimeData(item) {
+            return {
+                id: item.mal_id,
+                title: item.title_japanese || item.title || "Titre Inconnu",
+                englishTitle: item.title_english || item.title,
+                poster: item.images?.webp?.large_image_url || item.images?.jpg?.large_image_url || 'https://placehold.co/400x600/14141B/FFB703?text=Sans+Image',
+                banner: item.trailer?.images?.maximum_image_url || item.images?.webp?.large_image_url || item.images?.jpg?.large_image_url,
+                score: item.score || 'N/A',
+                rank: item.rank || 'N/A',
+                episodes: item.episodes || 'En cours',
+                year: item.year || (item.aired?.from ? new Date(item.aired.from).getFullYear() : 'N/A'),
+                status: item.status || 'Inconnu',
+                genres: item.genres ? item.genres.map(g => g.name) : [],
+                synopsis: item.synopsis || "Aucun synopsis disponible pour cet anime.",
+                studio: item.studios && item.studios.length > 0 ? item.studios[0].name : "Studio Inconnu",
+                trailerEmbed: item.trailer?.embed_url || null,
+                url: item.url
+            };
+        }
+
+        // 2. Render Hero Carousel Banner
+        function renderHero() {
+            if (topAnimes.length === 0) return;
+            const anime = topAnimes[activeHeroIndex];
+            const isFav = isFavorite(anime.id);
+            const container = document.getElementById('heroContainer');
+
+            container.innerHTML = `
+                <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 transform scale-105 filter brightness-90" 
+                     style="background-image: url('${anime.banner}');">
+                </div>
+                <div class="absolute inset-0 hero-gradient"></div>
+                <div class="relative max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-end pb-12 sm:pb-16 z-10">
+                    <div class="max-w-2xl space-y-4">
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <span class="px-3 py-1 bg-amber-gold text-black text-xs font-black rounded-full uppercase tracking-wider shadow">🔥 N°${anime.rank} MAL</span>
+                            <span class="text-amber-gold font-bold text-sm bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-md">
+                                <i class="fa-solid fa-star"></i> ${anime.score}/10
+                            </span>
+                            <span class="text-gray-300 text-sm font-semibold bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-md">${anime.studio}</span>
+                            <span class="text-gray-400 text-sm font-semibold">• ${anime.year}</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-black text-white leading-tight drop-shadow-lg">
+                            ${anime.englishTitle}
+                        </h1>
+                        <p class="text-gray-300 text-sm sm:text-base line-clamp-3 leading-relaxed drop-shadow">
+                            ${anime.synopsis}
+                        </p>
+                        <div class="flex items-center gap-4 pt-3">
+                            <button onclick="openModal(${anime.id})" class="px-6 py-3 rounded-xl bg-amber-gold hover:bg-yellow-400 text-black font-extrabold flex items-center gap-2 transition shadow-lg shadow-amber-gold/20">
+                                <i class="fa-solid fa-play"></i> Découvrir
+                            </button>
+                            <button onclick="toggleFavorite(${anime.id})" class="px-5 py-3 rounded-xl bg-dark-card/90 border border-dark-border hover:border-amber-gold text-white font-bold flex items-center gap-2 backdrop-blur-sm transition">
+                                <i class="fa-${isFav ? 'solid' : 'regular'} fa-bookmark ${isFav ? 'text-amber-gold' : ''}"></i> 
+                                ${isFav ? 'Dans ma liste' : 'Ajouter à ma liste'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function nextHero() {
+            if (topAnimes.length === 0) return;
+            activeHeroIndex = (activeHeroIndex + 1) % Math.min(topAnimes.length, 10);
+            renderHero();
+        }
+
+        function prevHero() {
+            if (topAnimes.length === 0) return;
+            activeHeroIndex = (activeHeroIndex - 1 + Math.min(topAnimes.length, 10)) % Math.min(topAnimes.length, 10);
+            renderHero();
+        }
+
+        // 3. Render Genre Filter Buttons
+        function renderGenreFilters() {
+            const filterContainer = document.getElementById('genreFilters');
+            filterContainer.innerHTML = GENRE_LIST.map(genre => `
+                <button onclick="setGenreFilter('${genre}')" 
+                        class="px-4 py-2 rounded-xl text-sm font-bold transition whitespace-nowrap ${selectedGenre === genre ? 'bg-amber-gold text-black shadow-lg shadow-amber-gold/20' : 'bg-dark-card border border-dark-border text-gray-300 hover:border-amber-gold'}">
+                    ${genre}
+                </button>
+            `).join('');
+        }
+
+        function setGenreFilter(genre) {
+            selectedGenre = genre;
+            renderGenreFilters();
+            applySorting();
+        }
+
+        // 4. Live Search with Debounce via Jikan API
+        function debounceSearch() {
+            const spinner = document.getElementById('searchSpinner');
+            spinner.classList.remove('hidden');
+            
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(async () => {
+                const query = document.getElementById('searchInput').value.trim();
+                await executeSearch(query);
+                spinner.classList.add('hidden');
+            }, 500);
+        }
+
+        function debounceSearchMobile() {
+            const query = document.getElementById('mobileSearchInput').value.trim();
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(async () => {
+                await executeSearch(query);
+            }, 500);
+        }
+
+        async function executeSearch(query) {
+            if (!query) {
+                document.getElementById('sectionTitle').innerText = "Top Animes Tendances";
+                displayedAnimes = [...topAnimes];
+                applySorting();
+                return;
+            }
+
+            document.getElementById('sectionTitle').innerText = `Résultats pour "${query}"`;
+            showGridLoading();
+
+            try {
+                const response = await fetch(`${JIKAN_API_BASE}/anime?q=${encodeURIComponent(query)}&limit=20`);
+                const data = await response.json();
+
+                if (data && data.data) {
+                    displayedAnimes = data.data.map(formatAnimeData);
+                    applySorting();
+                }
+            } catch (err) {
+                console.error("Erreur de recherche Jikan:", err);
+            }
+        }
+
+        // 5. Sorting Logic
+        function applySorting() {
+            const sortBy = document.getElementById('sortBy').value;
+            let filtered = [...displayedAnimes];
+
+            // Genre filtering
+            if (selectedGenre !== "Tous") {
+                filtered = filtered.filter(a => a.genres.includes(selectedGenre));
+            }
+
+            // Sorting
+            if (sortBy === "score") {
+                filtered.sort((a, b) => (parseFloat(b.score) || 0) - (parseFloat(a.score) || 0));
+            } else if (sortBy === "popularity") {
+                filtered.sort((a, b) => (parseInt(a.rank) || 9999) - (parseInt(b.rank) || 9999));
+            } else if (sortBy === "title") {
+                filtered.sort((a, b) => a.englishTitle.localeCompare(b.englishTitle));
+            }
+
+            renderGrid(filtered);
+        }
+
+        // 6. Grid Rendering
+        function showGridLoading() {
+            const grid = document.getElementById('animeGrid');
+            grid.innerHTML = Array(10).fill(0).map(() => `
+                <div class="bg-dark-card border border-dark-border rounded-2xl overflow-hidden animate-pulse h-80 flex flex-col justify-between p-4">
+                    <div class="bg-dark-border w-full h-48 rounded-xl mb-4"></div>
+                    <div class="bg-dark-border h-4 w-3/4 rounded mb-2"></div>
+                    <div class="bg-dark-border h-3 w-1/2 rounded"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderGrid(animes) {
+            const grid = document.getElementById('animeGrid');
+            const count = document.getElementById('resultCount');
+            count.innerText = `${animes.length} résultat${animes.length > 1 ? 's' : ''}`;
+
+            if (animes.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-16 text-gray-500">
+                        <i class="fa-solid fa-ghost text-4xl mb-3 text-amber-gold/50"></i>
+                        <p class="text-lg font-bold">Aucun anime trouvé.</p>
+                        <p class="text-xs text-gray-600 mt-1">Essayez un autre mot-clé ou modifiez le filtre de genre.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = animes.map(anime => {
+                const isFav = isFavorite(anime.id);
+                return `
+                    <div class="group relative bg-dark-card border border-dark-border rounded-2xl overflow-hidden hover:border-amber-gold/50 transition-all duration-300 hover:-translate-y-1.5 shadow-xl flex flex-col justify-between card-glow">
+                        <!-- High Res Official Poster -->
+                        <div class="relative aspect-[2/3] overflow-hidden bg-dark-hover cursor-pointer" onclick="openModal(${anime.id})">
+                            <img src="${anime.poster}" alt="${anime.englishTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
+                            
+                            <!-- Rating Badge -->
+                            <div class="absolute top-3 right-3 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-black text-amber-gold flex items-center gap-1 shadow">
+                                <i class="fa-solid fa-star"></i> ${anime.score}
+                            </div>
+
+                            <!-- Favorite Toggle Button -->
+                            <button onclick="event.stopPropagation(); toggleFavorite(${anime.id})" class="absolute top-3 left-3 w-8 h-8 rounded-lg bg-black/80 backdrop-blur-md text-white flex items-center justify-center hover:text-amber-gold transition shadow">
+                                <i class="fa-${isFav ? 'solid text-amber-gold' : 'regular'} fa-bookmark"></i>
+                            </button>
+                        </div>
+
+                        <!-- Info Footer -->
+                        <div class="p-4 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-[11px] text-amber-gold font-bold mb-1 uppercase tracking-wider">
+                                    <span>${anime.studio}</span>
+                                    <span>•</span>
+                                    <span>${anime.year}</span>
+                                </div>
+                                <h3 class="font-bold text-white text-sm sm:text-base line-clamp-1 group-hover:text-amber-gold transition cursor-pointer" onclick="openModal(${anime.id})">
+                                    ${anime.englishTitle}
+                                </h3>
+                                <p class="text-xs text-gray-400 mt-1 line-clamp-2 leading-relaxed">${anime.synopsis}</p>
+                            </div>
+                            
+                            <button onclick="openModal(${anime.id})" class="w-full mt-4 py-2 rounded-xl bg-dark-hover border border-dark-border text-gray-200 text-xs font-extrabold hover:bg-amber-gold hover:text-black hover:border-amber-gold transition">
+                                Fiche complète
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 7. Modal Details Logic
+        function openModal(malId) {
+            // Find locally or fetch from displayed/top
+            const anime = displayedAnimes.find(a => a.id === malId) || topAnimes.find(a => a.id === malId);
+            if (!anime) return;
+
+            const isFav = isFavorite(anime.id);
+            const modal = document.getElementById('animeModal');
+            const content = document.getElementById('modalContent');
+
+            content.innerHTML = `
+                <div class="relative h-64 sm:h-80 bg-cover bg-center" style="background-image: url('${anime.banner}')">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark-card via-dark-card/60 to-transparent"></div>
+                </div>
+                
+                <div class="p-6 sm:p-8 -mt-24 relative z-10 space-y-6">
+                    <div class="flex flex-col sm:flex-row gap-6 items-start">
+                        <!-- Poster -->
+                        <img src="${anime.poster}" alt="${anime.englishTitle}" class="w-36 sm:w-44 rounded-2xl border-2 border-amber-gold/40 shadow-2xl flex-shrink-0 object-cover">
+                        
+                        <div class="space-y-3 flex-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                ${anime.genres.map(g => `<span class="px-2.5 py-0.5 rounded-full bg-amber-gold/10 text-amber-gold text-xs font-bold border border-amber-gold/20">${g}</span>`).join('')}
+                            </div>
+                            <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">${anime.englishTitle}</h2>
+                            <p class="text-sm text-gray-400 font-semibold">${anime.title} • Studio: ${anime.studio}</p>
+                            
+                            <div class="flex items-center gap-4 text-sm pt-1 text-gray-300 flex-wrap">
+                                <span class="bg-dark-hover border border-dark-border px-3 py-1 rounded-lg"><i class="fa-solid fa-star text-amber-gold"></i> <strong class="text-white">${anime.score}</strong>/10</span>
+                                <span class="bg-dark-hover border border-dark-border px-3 py-1 rounded-lg"><i class="fa-solid fa-tv text-purple-400"></i> ${anime.episodes} épisodes</span>
+                                <span class="bg-dark-hover border border-dark-border px-3 py-1 rounded-lg"><i class="fa-solid fa-signal text-emerald-400"></i> ${anime.status}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Synopsis -->
+                    <div class="space-y-2 border-t border-dark-border pt-4">
+                        <h4 class="text-xs font-black text-amber-gold uppercase tracking-wider">Synopsis Officiel</h4>
+                        <p class="text-gray-300 text-sm sm:text-base leading-relaxed">${anime.synopsis}</p>
+                    </div>
+
+                    <!-- Trailer Embed if available -->
+                    ${anime.trailerEmbed ? `
+                        <div class="space-y-2 border-t border-dark-border pt-4">
+                            <h4 class="text-xs font-black text-amber-gold uppercase tracking-wider">Bande-Annonce Officielle</h4>
+                            <div class="aspect-video w-full rounded-2xl overflow-hidden border border-dark-border bg-black">
+                                <iframe src="${anime.trailerEmbed}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <!-- Action buttons -->
+                    <div class="flex items-center gap-4 pt-4 border-t border-dark-border">
+                        <a href="${anime.url}" target="_blank" rel="noopener" class="flex-1 py-3.5 rounded-xl bg-amber-gold hover:bg-yellow-400 text-black font-extrabold text-center transition flex items-center justify-center gap-2 shadow-lg shadow-amber-gold/20">
+                            <i class="fa-solid fa-external-link"></i> Voir sur MyAnimeList
+                        </a>
+                        <button onclick="toggleFavorite(${anime.id}); openModal(${anime.id});" class="px-5 py-3.5 rounded-xl bg-dark-hover border border-dark-border hover:border-amber-gold text-white font-bold transition flex items-center gap-2">
+                            <i class="fa-${isFav ? 'solid text-amber-gold' : 'regular'} fa-bookmark"></i>
+                            <span>${isFav ? 'Sauvegardé' : 'Ajouter'}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('animeModal').classList.add('hidden');
+        }
+
+        // 8. Favorites Storage Management
+        function isFavorite(id) {
+            return favorites.some(fav => fav.id === id);
+        }
+
+        function toggleFavorite(id) {
+            const anime = displayedAnimes.find(a => a.id === id) || topAnimes.find(a => a.id === id);
+            if (!anime) return;
+
+            if (isFavorite(id)) {
+                favorites = favorites.filter(fav => fav.id !== id);
+            } else {
+                favorites.push(anime);
+            }
+
+            localStorage.setItem('aniRealm_jikan_favs', JSON.stringify(favorites));
+            updateFavoritesBadge();
+            applySorting();
+            renderHero();
+
+            if (!document.getElementById('favModal').classList.contains('hidden')) {
+                renderFavoritesList();
+            }
+        }
+
+        function updateFavoritesBadge() {
+            const badge = document.getElementById('favBadge');
+            if (favorites.length > 0) {
+                badge.innerText = favorites.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function toggleFavoritesModal() {
+            const modal = document.getElementById('favModal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                renderFavoritesList();
+            }
+        }
+
+        function renderFavoritesList() {
+            const container = document.getElementById('favoritesList');
+
+            if (favorites.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <i class="fa-solid fa-bookmark text-4xl mb-2 text-dark-border"></i>
+                        <p class="text-sm font-semibold">Votre liste est vide.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = favorites.map(anime => `
+                <div class="flex items-center justify-between gap-4 p-3 bg-dark-hover border border-dark-border rounded-xl">
+                    <img src="${anime.poster}" class="w-12 h-16 object-cover rounded-lg flex-shrink-0" alt="${anime.englishTitle}">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-sm font-bold text-white truncate">${anime.englishTitle}</h4>
+                        <span class="text-xs text-amber-gold font-semibold"><i class="fa-solid fa-star"></i> ${anime.score}</span>
+                    </div>
+                    <button onclick="toggleFavorite(${anime.id})" class="text-gray-400 hover:text-red-400 p-2">
+                        <i class="fa-solid fa-trash text-sm"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function clearFavorites() {
+            favorites = [];
+            localStorage.setItem('aniRealm_jikan_favs', JSON.stringify(favorites));
+            updateFavoritesBadge();
+            renderFavoritesList();
+            applySorting();
+            renderHero();
+        }
+
+        function resetToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
